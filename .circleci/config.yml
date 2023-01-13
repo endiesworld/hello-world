@@ -69,7 +69,7 @@ jobs:
       - checkout
       - run:
           name: "save some text in a file"
-          command: "echo "text to output here" > output.txt"
+          command: "echo text to output here > output.txt"
       - persist_to_workspace:
           root: /tmp/dir
           paths:
