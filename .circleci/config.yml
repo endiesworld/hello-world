@@ -72,9 +72,9 @@ jobs:
           command: mkdir -p tmp/dir
       - run:
           name: "save some text in a file"
-          command: "echo text to output here > /tmp/dir/output.txt"
+          command: "echo text to output here > tmp/dir/output.txt"
       - persist_to_workspace:
-          root: /tmp/dir
+          root: tmp/dir
           paths:
             - output.txt
 
