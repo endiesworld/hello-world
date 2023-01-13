@@ -67,13 +67,13 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
+      - run:
+          name: "save some text in a file"
+          command: "echo "text to output here" > output.txt"
       - persist_to_workspace:
           root: /tmp/dir
           paths:
             - output.txt
-      - run:
-          name: "save some text in a file"
-          command: "echo "text to output here" > output.txt"
 
   print_output_file:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
