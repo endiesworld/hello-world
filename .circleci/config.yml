@@ -99,3 +99,5 @@ workflows:
           requires:
             - say-hello
       - testing-env-vars
+      - save_hello_world_output
+      - print_output_file
