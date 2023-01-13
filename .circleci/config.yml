@@ -2,9 +2,37 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+commands:
+  print_pipeline_id:
+    description: "A very simple command to print workflow ID from env variables"
+    parameters:
+      to:
+        type: string
+        default: "Emmanuel Okoro"
+    steps:
+      - run: echo "Hello <<parameters.to>>"
+      - run: echo $CIRCLE_WORKFLOW_ID
+
+
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
+
+  test-commands:
+    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+    docker:
+      - image: circleci/node:13.8.0
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    steps:
+      - checkout
+      - run:
+          name: "test the steps in commands for reusablility"
+          - print_pipeline_id:
+              to: "Emmanuel Okoro"
+
   say-hello:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
@@ -17,6 +45,7 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo Hello, "
+
   say-world:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
@@ -106,3 +135,4 @@ workflows:
       - print_output_file:
           requires:
             - save_hello_world_output
+      - test-commands
